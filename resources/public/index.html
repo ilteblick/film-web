@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+  <head lang="ru">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/site.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/js/site.min.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript" src="/js/main.js" charset="utf-8"></script>
+    <div class="container">
+      <form action="/login" method="POST">
+        <input name="username" type="text" />
+        <input name="password" type="text" />
+        <button type="submit" >Я кнопка</button>
+      </form>
+
+      <input id="text">
+      <button onclick="send()">Send</button>
+      <div id="output>" ></div>
+    </div>  
+  </body>
+<script>
+  var text = document.getElementById('text');
+  var output = document.getElementById('output');
+  var ws = new WebSocket("ws://localhost:3000/echo");
+
+  ws.onopen = function () {
+    display('Connection open...');
+  }
+
+  ws.onmessage = function (message) {
+    display(message.data);
+    text.value = '';
+  }
+
+  function send() {
+    ws.send(text.value);
+  }
+
+  function display(message) {
+    var p = document.createElement("p");
+    var new_text = document.createTextNode(message);
+    p.appendChild(new_text);
+
+      output.appendChild(p);
+
+  }
+</script>
+</html> 
