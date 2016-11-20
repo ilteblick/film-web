@@ -9,10 +9,10 @@
   )
 
 
-(defn register [{:keys [username password]}]
+(defn register [{:keys [username password email fio]}]
   (try
-    (.Insert (User-repo. ) {:username username :password password})
-    (workflows/make-auth {:identity username :roles #{::user} :username username})
+    (.Insert (User-repo. ) {:username username :password password :email email :fio fio})
+    (workflows/make-auth {:identity username :user {:username username :email email :fio fio}})
     (catch Exception e
       (.println System/out e)
       (str "Username address already in use")))
@@ -29,7 +29,7 @@
     (let [user (get (.find-user-by-username (User-repo.) (:username auth-map))0)]
       (if (not (= user nil))
         (if (creds/bcrypt-verify (:password auth-map) (:password user))
-          {:identity (:id user) :roles #{::user} :user user})
+          {:identity (:username user) :user user})
         )
       )))
 

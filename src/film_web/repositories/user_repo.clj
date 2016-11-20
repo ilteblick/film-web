@@ -15,7 +15,10 @@
   (find-user-by-username [this username] (select user (where {:username username})))
   repo-protocol
   (Insert [this entity]
-    (insert user (values {:username (:username entity) :password (creds/hash-bcrypt (:password entity))}))
+    (insert user (values {:username (:username entity)
+                          :email (:email entity)
+                          :fio (:fio entity)
+                          :password (creds/hash-bcrypt (:password entity))}))
     )
   )
 
