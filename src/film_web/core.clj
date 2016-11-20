@@ -8,7 +8,8 @@
             [clojure.set :refer [rename-keys]]
             [ring.middleware.reload :as reload]
             [routes
-             [auth :as auth]]
+             [auth :as auth]
+             [user :as user]]
             [middleware
              [auth :refer [credential-fn reg-workflow]]]
             )
@@ -27,6 +28,7 @@
 (defn app-routes []
      (routes
        auth/routes
+       user/routes
        ))
 
 (def app

@@ -1,5 +1,5 @@
 (ns routes.auth
-  (:require [compojure.core :refer [GET ANY defroutes]]
+  (:require [compojure.core :refer [GET POST ANY defroutes]]
             [cemerick.friend :as friend])
   )
 
@@ -15,4 +15,5 @@
            (GET "/register" [] (-> "public/register.html"
                                    (ring.util.response/file-response {:root "resources"})
                                    (ring.util.response/content-type "text/html")))
+
            )

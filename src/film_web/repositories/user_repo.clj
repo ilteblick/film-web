@@ -20,8 +20,15 @@
                           :fio (:fio entity)
                           :password (creds/hash-bcrypt (:password entity))}))
     )
+  (Update [this id entity]
+    (println id entity)
+    (update user (set-fields {:username (:username entity)
+                          :email (:email entity)
+                          :fio (:fio entity)
+                          :password (:password entity)})
+            (where {:id [= id]}))
   )
-
+  )
 
 
 
